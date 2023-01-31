@@ -3,6 +3,7 @@ package com.objectmethod.demoecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ public class ClienteController {
 
 	@Autowired
 	ClienteService clienteService;
-
+	@CrossOrigin
 	@GetMapping
 	public List<ClienteDto> getAllCliente() {
 		return clienteService.getAllCliente();
@@ -44,7 +45,13 @@ public class ClienteController {
 			@RequestParam(name = "password") String password) {
 		return clienteService.updateCliente(new ClienteDto(id, email, password));
 	}
-
+/*
+ * su una mia api genera  single page application con dentro svariati div che si abilitano e si disabilitano in base 
+ * a cosa  stai facendo
+ *  lista prodotti deve permettere di vedere tutti i prodotti
+ *  prodotti nel mio carrello deve permettere di vedere tutti i prodotti nel tuo carrello
+ *  dettaglio prodotto 
+ */
 	@DeleteMapping("/{id}")
 	public String deleteCliente(@PathVariable(name = "id") Integer id) {
 		clienteService.deleteCliente(id);

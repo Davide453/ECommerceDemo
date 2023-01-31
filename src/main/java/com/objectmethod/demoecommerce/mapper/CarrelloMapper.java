@@ -15,7 +15,12 @@ public class CarrelloMapper {
 		if (c == null) {
 			return null;
 		}
-		CarrelloDto d = new CarrelloDto(c.getIdCarrello(), c.getC().getIdCliente(), c.getP().getIdProdotto());
+		CarrelloDto d = new CarrelloDto(c.getIdCarrello(), c.getC().getIdCliente());
+		if (c.getP() != null) {
+			d.setIdProdotto(c.getP().getIdProdotto());
+		} else {
+			d.setIdProdotto(null);
+		}
 		return d;
 	}
 
@@ -26,6 +31,8 @@ public class CarrelloMapper {
 		Carrello c = new Carrello(d.getIdCarrello(), d.getIdCliente());
 		if (d.getIdProdotto() != null) {
 			c.getP().setIdProdotto(d.getIdProdotto());
+		} else {
+			c.setP(null);
 		}
 		return c;
 	}

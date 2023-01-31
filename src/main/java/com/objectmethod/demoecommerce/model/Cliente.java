@@ -1,9 +1,13 @@
 package com.objectmethod.demoecommerce.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name = "cliente", schema = "e_commerce_demo")
@@ -13,7 +17,8 @@ public class Cliente {
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer idCliente;
 	private String email;
 	private String password;
-	
+	@OneToMany(mappedBy="c", fetch=FetchType.LAZY)
+	List<Carrello> carrelli;
 	public Cliente() {
 		super();
 	}
@@ -43,6 +48,12 @@ public class Cliente {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public List<Carrello> getCarrelli() {
+		return carrelli;
+	}
+	public void setCarrelli(List<Carrello> carrelli) {
+		this.carrelli = carrelli;
 	}
 
 	

@@ -4,7 +4,7 @@ public class ProdottoDto {
 	private Integer idProdotto;
 	private String nome;
 	private Integer costo;
-
+private CarrelloDto carelloDto;
 	public ProdottoDto() {
 		super();
 	}
@@ -42,6 +42,14 @@ public class ProdottoDto {
 
 	public void setCosto(Integer costo) {
 		this.costo = costo;
+	}
+
+	public CarrelloDto getCarelloDto() {
+		return carelloDto;
+	}
+
+	public void setCarelloDto(CarrelloDto carelloDto) {
+		this.carelloDto = carelloDto;
 	}
 
 }

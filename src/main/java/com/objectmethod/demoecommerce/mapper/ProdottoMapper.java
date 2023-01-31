@@ -15,7 +15,7 @@ public class ProdottoMapper {
 		if (p == null) {
 			return null;
 		}
-		ProdottoDto d = new ProdottoDto(p.getIdProdotto(), p.getNome(), p.getCosto());
+		ProdottoDto d = new ProdottoDto(p.getIdProdotto(), p.getNome(), p.getCosto());	
 		return d;
 	}
 
