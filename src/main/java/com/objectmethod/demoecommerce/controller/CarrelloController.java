@@ -15,39 +15,46 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.objectmethod.demoecommerce.dto.CarrelloDto;
 import com.objectmethod.demoecommerce.service.CarrelloService;
+
 @RequestMapping("/api/carrello")
 @RestController
 public class CarrelloController {
 
 	@Autowired
 	CarrelloService carrelloService;
+
 	@CrossOrigin
 	@GetMapping
 	public List<CarrelloDto> getAllCarrello() {
 		return carrelloService.getAllCarrello();
 	}
+
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public List<CarrelloDto> getAllCarrelloByIdCliente(@PathVariable(name = "id") Integer idCliente) {
 		return carrelloService.getAllCarrelloByIdCliente(idCliente);
 	}
 
+	@CrossOrigin
 	@PostMapping("/{id}")
-	public CarrelloDto insertCarrello(@PathVariable(name = "id") Integer idCliente, Integer idProdotto) {
-		CarrelloDto d = new CarrelloDto(idCliente, idProdotto);
+	public CarrelloDto insertCarrello(@PathVariable(name = "id") Integer idCliente,
+			@RequestParam(name = "idProdotto") Integer idProdotto) {
+		CarrelloDto d = new CarrelloDto(idProdotto, idCliente);
 		return carrelloService.insertCarrello(d);
 	}
 
+	@CrossOrigin
 	@PutMapping("/{id}")
-	public CarrelloDto updateCarrelloByIdClienteIdCarrello(@PathVariable(name = "id") Integer idCliente,
+	public CarrelloDto updateCarrelloByIdClienteIdCarrello(@PathVariable(name = "idCliente") Integer idCliente,
 			@RequestParam(name = "idCarrello") Integer idCarrello,
 			@RequestParam(name = "idProdotto") Integer idProdotto) {
 		CarrelloDto d = new CarrelloDto(idCarrello, idCliente, idProdotto);
 		return carrelloService.updateCarrelloByIdClienteIdCarrello(d);
 	}
 
-	@DeleteMapping
-	public void deleteCarrelloByIdCarrello(Integer idCarrello) {
+	@CrossOrigin
+	@DeleteMapping("/{id}")
+	public void deleteCarrelloByIdCarrello(@PathVariable(name = "id") Integer idCarrello) {
 		carrelloService.deleteCarrello(idCarrello);
 	}
 }

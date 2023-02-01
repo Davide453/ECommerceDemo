@@ -25,9 +25,15 @@ public class Carrello {
 		super();
 	}
 
-	public Carrello(Integer idCarrello, Integer idCliente) {
+	public Carrello(Integer idCliente) {
+		this.c = new Cliente();
+		this.p = new Prodotto();
+		c.setIdCliente(idCliente);
+	}
+
+	public Carrello(Integer idProdotto, Integer idCliente) {
 		super();
-		this.idCarrello = idCarrello;
+		this.p.setIdProdotto(idProdotto);
 		this.c.setIdCliente(idCliente);
 	}
 

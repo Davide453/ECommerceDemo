@@ -27,19 +27,19 @@ public class ClienteController {
 	public List<ClienteDto> getAllCliente() {
 		return clienteService.getAllCliente();
 	}
-
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ClienteDto getClienteById(@PathVariable(name = "id") Integer id) {
 		return clienteService.getClienteById(id);
 	}
-
+	@CrossOrigin
 	@PostMapping
 	public ClienteDto insertCliente(@RequestParam(name = "email") String email,
 			@RequestParam(name = "password") String password) {
 		ClienteDto c = new ClienteDto(email, password);
 		return clienteService.insertCliente(c);
 	}
-
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public ClienteDto updateCliente(@PathVariable(name = "id") Integer id, @RequestParam(name = "email") String email,
 			@RequestParam(name = "password") String password) {
@@ -51,14 +51,14 @@ public class ClienteController {
  *  lista prodotti deve permettere di vedere tutti i prodotti
  *  prodotti nel mio carrello deve permettere di vedere tutti i prodotti nel tuo carrello
  *  dettaglio prodotto 
- */
+ */	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public String deleteCliente(@PathVariable(name = "id") Integer id) {
 		clienteService.deleteCliente(id);
 		return "Il cliente è stato eliminato";
 	}
 ///////////
-
+	@CrossOrigin
 	@PostMapping("/login")
 	public ClienteDto loginCliente(@RequestParam(name = "email") String email,
 			@RequestParam(name = "password") String password) {

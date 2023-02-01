@@ -1,7 +1,5 @@
 package com.objectmethod.demoecommerce.dto;
 
-import java.util.List;
-
 public class CarrelloDto {
 
 	private Integer idCarrello;
@@ -12,14 +10,14 @@ public class CarrelloDto {
 		super();
 	}
 
-	public CarrelloDto(Integer idCarrello) {
+	public CarrelloDto(Integer idCliente) {
 		super();
-		this.idCarrello = idCarrello;
+		this.idCliente = idCliente;
 	}
 
-	public CarrelloDto(Integer idCarrello, Integer idCliente) {
+	public CarrelloDto(Integer idProdotto, Integer idCliente) {
 		super();
-		this.idCarrello = idCarrello;
+		this.idProdotto = idProdotto;
 		this.idCliente = idCliente;
 	}
 

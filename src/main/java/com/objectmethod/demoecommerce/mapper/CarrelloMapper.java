@@ -11,30 +11,42 @@ import com.objectmethod.demoecommerce.model.Carrello;
 @Component
 public class CarrelloMapper {
 
-	public CarrelloDto toDto(Carrello c) {
-		if (c == null) {
+	public CarrelloDto toDto(Carrello carrello) {
+		if (carrello == null) {
 			return null;
 		}
-		CarrelloDto d = new CarrelloDto(c.getIdCarrello(), c.getC().getIdCliente());
-		if (c.getP() != null) {
-			d.setIdProdotto(c.getP().getIdProdotto());
+		CarrelloDto carrelloDto = new CarrelloDto(carrello.getC().getIdCliente());
+		if (carrello.getIdCarrello() != null) {
+			carrelloDto.setIdCarrello(carrello.getIdCarrello());
 		} else {
-			d.setIdProdotto(null);
+			carrello.setIdCarrello(null);
 		}
-		return d;
+		
+		if (carrello.getP() != null) {
+			carrelloDto.setIdProdotto(carrello.getP().getIdProdotto());
+		} else {
+			carrelloDto.setIdProdotto(null);
+		}
+		return carrelloDto;
 	}
 
-	public Carrello toCarrello(CarrelloDto d) {
-		if (d == null) {
+	public Carrello toCarrello(CarrelloDto carrelloDto) {
+		if (carrelloDto == null) {
 			return null;
 		}
-		Carrello c = new Carrello(d.getIdCarrello(), d.getIdCliente());
-		if (d.getIdProdotto() != null) {
-			c.getP().setIdProdotto(d.getIdProdotto());
+		Carrello carrello = new Carrello(carrelloDto.getIdCliente());
+		if (carrelloDto.getIdCarrello() != null) {
+			carrello.setIdCarrello(carrelloDto.getIdCarrello());
 		} else {
-			c.setP(null);
+			carrello.setIdCarrello(null);
 		}
-		return c;
+		
+		if (carrelloDto.getIdProdotto() != null) {
+			carrello.getP().setIdProdotto(carrelloDto.getIdProdotto());
+		} else {
+			carrello.setP(null);
+		}
+		return carrello;
 	}
 
 	public List<CarrelloDto> toDtoList(List<Carrello> cArray) {
