@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.objectmethod.demoecommerce.dto.ProdottoDto;
+import com.objectmethod.demoecommerce.model.Carrello;
 import com.objectmethod.demoecommerce.model.Prodotto;
 
 @Component
@@ -15,7 +16,10 @@ public class ProdottoMapper {
 		if (p == null) {
 			return null;
 		}
-		ProdottoDto d = new ProdottoDto(p.getIdProdotto(), p.getNome(), p.getCosto());	
+		ProdottoDto d = new ProdottoDto(p.getIdProdotto(), p.getNome(), p.getCosto(), null);
+		if (p.getCarrello() != null) {
+			d.setIdCarrello(p.getCarrello().getIdCarrello());
+		}
 		return d;
 	}
 
@@ -23,7 +27,11 @@ public class ProdottoMapper {
 		if (d == null) {
 			return null;
 		}
-		Prodotto p = new Prodotto(d.getIdProdotto(), d.getNome(), d.getCosto());
+		Prodotto p = new Prodotto(d.getIdProdotto(), d.getNome(), d.getCosto(), null);
+		if (d.getIdCarrello() != null) {
+			p.setCarrello(new Carrello());
+			p.getCarrello().setIdCarrello(d.getIdCarrello());
+		}
 		return p;
 	}
 

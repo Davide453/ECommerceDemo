@@ -23,12 +23,12 @@ public class CarrelloService {
 	}
 
 	public List<CarrelloDto> getAllCarrelloByIdCliente(Integer idCliente) {
-		Cliente c = new Cliente();
-		c.setIdCliente(idCliente);
-		return carrelloMap.toDtoList(carrelloRepo.findByC(c));
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(idCliente);
+		return carrelloMap.toDtoList(carrelloRepo.findByCliente(cliente));
 	}
 
-	public CarrelloDto getCarrelloByIdCarrello(Integer idCarrello) {
+	public CarrelloDto getCarrelloById(Integer idCarrello) {
 		return carrelloMap.toDto(carrelloRepo.findById(idCarrello).orElse(null));
 	}
 
@@ -44,4 +44,5 @@ public class CarrelloService {
 		carrelloRepo.deleteById(idCarrello);
 
 	}
+
 }

@@ -11,5 +11,5 @@ import com.objectmethod.demoecommerce.model.Cliente;
 @Repository
 public interface CarrelloRepository extends JpaRepository<Carrello, Integer> {
 
-	List<Carrello> findByC(Cliente c);
+	List<Carrello> findByCliente(Cliente c);
 }

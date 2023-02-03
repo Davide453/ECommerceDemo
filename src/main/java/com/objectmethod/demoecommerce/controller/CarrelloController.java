@@ -1,5 +1,6 @@
 package com.objectmethod.demoecommerce.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.objectmethod.demoecommerce.dto.CarrelloDto;
+import com.objectmethod.demoecommerce.dto.ProdottoDto;
 import com.objectmethod.demoecommerce.service.CarrelloService;
 
 @RequestMapping("/api/carrello")
@@ -30,25 +32,31 @@ public class CarrelloController {
 	}
 
 	@CrossOrigin
-	@GetMapping("/{id}")
+	@GetMapping("idcliente/{id}")
 	public List<CarrelloDto> getAllCarrelloByIdCliente(@PathVariable(name = "id") Integer idCliente) {
 		return carrelloService.getAllCarrelloByIdCliente(idCliente);
 	}
 
 	@CrossOrigin
+	@GetMapping("idcarrello/{id}")
+	public CarrelloDto getCarrelloById(@PathVariable(name = "id") Integer idCarrello) {
+		return carrelloService.getCarrelloById(idCarrello);
+	}
+
+	// CREA CARRELLO
+	@CrossOrigin
 	@PostMapping("/{id}")
-	public CarrelloDto insertCarrello(@PathVariable(name = "id") Integer idCliente,
-			@RequestParam(name = "idProdotto") Integer idProdotto) {
-		CarrelloDto d = new CarrelloDto(idProdotto, idCliente);
+	public CarrelloDto insertCarrello(@PathVariable(name = "id") Integer idCliente) {
+		CarrelloDto d = CarrelloDto.builder().idCliente(idCliente).build();
 		return carrelloService.insertCarrello(d);
 	}
 
 	@CrossOrigin
 	@PutMapping("/{id}")
-	public CarrelloDto updateCarrelloByIdClienteIdCarrello(@PathVariable(name = "idCliente") Integer idCliente,
-			@RequestParam(name = "idCarrello") Integer idCarrello,
-			@RequestParam(name = "idProdotto") Integer idProdotto) {
-		CarrelloDto d = new CarrelloDto(idCarrello, idCliente, idProdotto);
+	public CarrelloDto updateCarrelloByIdClienteIdCarrello(@PathVariable(name = "id") Integer idCliente,
+			@RequestParam(name = "idCarrello") Integer idCarrello) {
+		CarrelloDto d = CarrelloDto.builder().idCliente(idCliente).idCarrello(idCarrello).build();
+
 		return carrelloService.updateCarrelloByIdClienteIdCarrello(d);
 	}
 

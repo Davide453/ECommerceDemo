@@ -3,29 +3,28 @@ package com.objectmethod.demoecommerce.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.objectmethod.demoecommerce.dto.CarrelloDto;
 import com.objectmethod.demoecommerce.model.Carrello;
+import com.objectmethod.demoecommerce.model.Cliente;
 
 @Component
 public class CarrelloMapper {
+	@Autowired
+	ProdottoMapper prodottoMap;
 
 	public CarrelloDto toDto(Carrello carrello) {
 		if (carrello == null) {
 			return null;
 		}
-		CarrelloDto carrelloDto = new CarrelloDto(carrello.getC().getIdCliente());
+		CarrelloDto carrelloDto = CarrelloDto.builder().idCliente(carrello.getCliente().getIdCliente()).build();
 		if (carrello.getIdCarrello() != null) {
 			carrelloDto.setIdCarrello(carrello.getIdCarrello());
-		} else {
-			carrello.setIdCarrello(null);
 		}
-		
-		if (carrello.getP() != null) {
-			carrelloDto.setIdProdotto(carrello.getP().getIdProdotto());
-		} else {
-			carrelloDto.setIdProdotto(null);
+		if (carrello.getProdotto() != null) {
+			carrelloDto.setProdottoDto(prodottoMap.toDtoList(carrello.getProdotto()));
 		}
 		return carrelloDto;
 	}
@@ -34,17 +33,15 @@ public class CarrelloMapper {
 		if (carrelloDto == null) {
 			return null;
 		}
-		Carrello carrello = new Carrello(carrelloDto.getIdCliente());
+		Carrello carrello = Carrello.builder().cliente(Cliente.builder().idCliente(carrelloDto.getIdCliente()).build())
+				.build();
 		if (carrelloDto.getIdCarrello() != null) {
 			carrello.setIdCarrello(carrelloDto.getIdCarrello());
-		} else {
-			carrello.setIdCarrello(null);
+
 		}
-		
-		if (carrelloDto.getIdProdotto() != null) {
-			carrello.getP().setIdProdotto(carrelloDto.getIdProdotto());
-		} else {
-			carrello.setP(null);
+
+		if (carrelloDto.getProdottoDto() != null) {
+			carrello.setProdotto(prodottoMap.toProdottoList(carrelloDto.getProdottoDto()));
 		}
 		return carrello;
 	}

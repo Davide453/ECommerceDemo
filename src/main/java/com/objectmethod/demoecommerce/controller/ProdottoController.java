@@ -21,27 +21,41 @@ import com.objectmethod.demoecommerce.service.ProdottoService;
 public class ProdottoController {
 	@Autowired
 	ProdottoService prodottoService;
+
 	@CrossOrigin
 	@GetMapping
 	public List<ProdottoDto> getAllProdotto() {
 		return prodottoService.getAllProdotto();
 	}
+
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ProdottoDto getProdottoById(@PathVariable(name = "id") Integer id) {
 		return prodottoService.getProdottoById(id);
 	}
+
 	@CrossOrigin
 	@PostMapping
 	public ProdottoDto insertProdotto(@RequestParam("nome") String nome, @RequestParam("costo") Integer costo) {
-		return prodottoService.insertProdotto(new ProdottoDto(nome, costo));
+		return prodottoService.insertProdotto(ProdottoDto.builder().nome(nome).costo(costo).build());
 	}
+
 	@CrossOrigin
 	@PutMapping("/{id}")
-	public ProdottoDto updateProdotto(@PathVariable(name = "id") Integer id, @RequestParam("nome") String nome,
-			@RequestParam("costo") Integer costo) {
-		return prodottoService.updateProdotto(new ProdottoDto(id, nome, costo));
+	public ProdottoDto updateProdotto(@PathVariable(name = "id") Integer idProdotto, Integer idCarrello) {
+		ProdottoDto prodottoDto = prodottoService.getProdottoById(idProdotto);
+		prodottoDto.setIdCarrello(idCarrello);
+		return prodottoService.updateProdotto(prodottoDto);
 	}
+
+	@CrossOrigin
+	@PutMapping("removecarrello/{id}")
+	public ProdottoDto deleteCarrello(@PathVariable(name = "id") Integer idProdotto) {
+		ProdottoDto prodottoDto = prodottoService.getProdottoById(idProdotto);
+		prodottoDto.setIdCarrello(null);
+		return prodottoService.updateProdotto(prodottoDto);
+	}
+
 	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public String deleteProdotto(@PathVariable(name = "id") Integer id) {

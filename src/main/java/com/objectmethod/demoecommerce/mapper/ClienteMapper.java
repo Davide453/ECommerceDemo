@@ -29,8 +29,9 @@ public class ClienteMapper {
 		if (clienteDto == null) {
 			return null;
 		}
-		Cliente cliente = new Cliente(clienteDto.getIdCliente(), clienteDto.getEmail(), clienteDto.getPassword());
-		cliente.setCarrelli(carrelloMapper.toCarrelloList(clienteDto.getCarrelloDto()));
+
+		Cliente cliente = new Cliente(clienteDto.getIdCliente(), clienteDto.getEmail(), clienteDto.getPassword(),
+				carrelloMapper.toCarrelloList(clienteDto.getCarrelloDto()));
 		return cliente;
 	}
 
